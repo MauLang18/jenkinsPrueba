@@ -1,18 +1,30 @@
 pipeline {
     agent any
-
     stages {
-        stage('docker build') {
+        stage('Declarative: Checkout SCM') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t maulang18/homer_page:1.0.0-${BUILD_ID}"
+                    if (isUnix()) {
+                        sh 'docker build -t mi-imagen .'
+                    } else {
+                        bat 'docker build -t mi-imagen .'
+                    }
                 }
             }
         }
-        stage('docker push') {
+        stage('Push Docker Image') {
             steps {
                 script {
-                    sh "docker push maulang18/homer_page:1.0.0-${BUILD_ID}"
+                    if (isUnix()) {
+                        sh 'docker push mi-imagen'
+                    } else {
+                        bat 'docker push mi-imagen'
+                    }
                 }
             }
         }
