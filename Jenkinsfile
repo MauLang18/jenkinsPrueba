@@ -5,14 +5,16 @@ pipeline {
         stage('docker build') {
             steps {
                 script {
-                    bat "docker build -t maulang18/homer_page:1.0.0-${BUILD_ID} ."
+                    bat "docker build -t maulang18/homer_page:latest ."
                 }
             }
         }
-        stage('docker run') {
+        stage('docker compose up') {
             steps {
                 script {
-                    bat "docker run -d -p 10108:80 maulang18/homer_page:1.0.0-${BUILD_ID}"
+                    dir('C:\Users\administrador\Desktop\Docker\Jenkins') {
+                        bat 'docker-compose up -d'
+                    }
                 }
             }
         }
