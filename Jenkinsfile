@@ -9,10 +9,10 @@ pipeline {
                 }
             }
         }
-        stage('docker push') {
+        stage('docker run') {
             steps {
                 script {
-                    bat "docker push maulang18/homer_page:1.0.0-${BUILD_ID}"
+                    bat "docker run -d -p 10108:80 maulang18/homer_page:1.0.0-${BUILD_ID}"
                 }
             }
         }
