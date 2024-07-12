@@ -18,5 +18,14 @@ pipeline {
                 }
             }
         }
+        stage('docker compose down') {
+            steps {
+                script {
+                    dir('C:/Users/administrador/Desktop/Docker/Jenkins') {
+                        bat 'docker-compose down'
+                    }
+                }
+            }
+        }
     }
 }
