@@ -12,7 +12,7 @@ pipeline {
         stage('docker compose up') {
             steps {
                 script {
-                    dir('C:\Users\administrador\Desktop\Docker\Jenkins') {
+                    dir('C:/Users/administrador/Desktop/Docker/Jenkins') {
                         bat 'docker-compose up -d'
                     }
                 }
