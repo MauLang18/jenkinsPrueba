@@ -1,28 +1,33 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id' // Reemplaza con el ID de tus credenciales en Jenkins
+        IMAGE_NAME = 'maulang18/homer_page'
+        TAG = 'latest'
+    }
+
     stages {
-        stage('docker build') {
+        stage('Docker Build') {
             steps {
                 script {
-                    bat "docker build -t maulang18/homer_page:latest ."
+                    sh "docker build -t ${IMAGE_NAME}:${TAG} ."
                 }
             }
         }
-        stage('docker compose up') {
+        stage('Docker Push') {
             steps {
                 script {
-                    dir('C:/Users/administrador/Desktop/Docker/Jenkins') {
-                        bat 'docker-compose up -d'
-                    }
+                    // Subir la imagen a Docker Hub
+                    sh "docker push ${IMAGE_NAME}:${TAG}"
                 }
             }
         }
-        stage('docker compose down') {
+        stage('Docker Compose Up') {
             steps {
                 script {
-                    dir('C:/Users/administrador/Desktop/Docker/Jenkins') {
-                        bat 'docker-compose down'
+                    dir('/path/to/docker/compose/files') {
+                        sh 'docker-compose up -d'
                     }
                 }
             }
